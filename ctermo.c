@@ -49,6 +49,8 @@ main()
 		puts("\nCONGRATULATIONS! You WON!!");
 	else
 		puts("\nNot this time.. Looser");
+	
+	printf("%s:%s\n", word, hint);
 
 	return 0;
 }
