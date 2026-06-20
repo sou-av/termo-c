@@ -29,15 +29,26 @@ main()
 	n = length(word);
 
 	show_word(n, word);
-	
-	for (i=0; i < MAX_TRIES; ++i) {
+
+	i = 0;
+	while (i < MAX_TRIES) {
 		printf("What's your guess? (%d/%d)\n--> ", i+1, MAX_TRIES);
 		guess[0] = 0;  // clean guess
 		scanf("%s", guess);
-		show_guess(n, guess, word);
+		++i;
+
+		if (i+1 == MAX_TRIES - 1)
+			puts("If you want, you can type '?' to get a hint");
+
+		if (guess[0] == '?')
+			printf("Hint: %s\n\n", hint);
+		else
+			show_guess(n, guess, word);
+
 		if (is_equal(guess, word))
 			break;
 	}
+
 
 	if (is_equal(guess, word))
 		puts("\nCONGRATULATIONS! You WON!!");
