@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 
-void show_word(char*);
+void show_word(int,char*);
 int length(char*);
 
 
@@ -9,21 +9,29 @@ int
 main()
 {
 	char word[]="printf";
-	show_word(word);
+	const int n = length(word);
+	char guess[n]={};
+	
+	show_word(n, word);
+	show_word(n, guess);
+	
+	printf("What's your guess?\n--> ");
+	scanf("%s", guess);
+	show_word(n, guess);
+
 	return 0;
 }
 
 
 void
-show_word(char *word)
+show_word(int n, char *word)
 {
-	const int n = length(word);
 	const char sub[]="\033[4m", normal[]="\033[m";
 
 	printf("size %d\n", n);
 	printf("%s", sub);
 	for (int i=0; i < n; ++i) {
-		printf("%c", word[i]);
+		putchar(word[i] ? word[i] : ' ');
 	}
 	printf("%s", normal);
 	putchar('\n');
