@@ -111,7 +111,7 @@ contains(char c, char *word)
 int
 is_equal(char *a, char *b)
 {
-	for (int i=0; a[i] && b[i]; ++i)
+	for (int i=0; a[i] || b[i]; ++i)
 		if (a[i] != b[i]) return 0;
 	return 1;
 }
