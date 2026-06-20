@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 
 #define MAX_TRIES 3
@@ -14,11 +15,14 @@ int is_equal(char*,char*);
 int
 main()
 {
-	char word[]="printf";
-	const int n = length(word);
-	char guess[n];
-	int tries=0;
+	char *word, *guess;
+	int n, tries=0;
+	FILE *file;
 	
+	file = fopen("words.txt", "r");
+	fscanf(file, "%s", word);
+	n = length(word);
+
 	show_word(n, word);
 	
 	for (int i=0; i < MAX_TRIES; ++i) {
