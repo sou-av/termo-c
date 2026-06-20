@@ -3,9 +3,9 @@
 #include <locale.h>
 #include <time.h>
 
-#define MAX_TRIES 3
+#define MAX_TRIES 5
 #define FILENAME "words.txt"
-
+#define HELP "\nIf you want, you can type '?' to get a hint"
 
 void show_word(int,char*);
 void show_guess(int,char*,char*);
@@ -28,20 +28,15 @@ main()
 	random_pick(word, hint);
 	n = length(word);
 
-	show_word(n, word);
-
-	i = 0;
-	while (i < MAX_TRIES) {
-		printf("What's your guess? (%d/%d)\n--> ", i+1, MAX_TRIES);
+	for (i=0; i < MAX_TRIES; ++i) {
+		printf("What's your guess? (%d/%d)%s\n--> ", i+1, MAX_TRIES,
+		                                    i+1 == MAX_TRIES-1 ? HELP : "");
+		
 		guess[0] = 0;  // clean guess
 		scanf("%s", guess);
-		++i;
-
-		if (i+1 == MAX_TRIES - 1)
-			puts("If you want, you can type '?' to get a hint");
 
 		if (guess[0] == '?')
-			printf("Hint: %s\n\n", hint);
+			printf("Hint: %s\n", hint);
 		else
 			show_guess(n, guess, word);
 
