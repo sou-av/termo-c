@@ -1,0 +1,3 @@
+srand Função para define seed de números aleatórios
+scanf Função para escanear valores e armazena-los na memória
+printf Função para exibir texto na tela de acordo com formatação
