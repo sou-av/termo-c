@@ -15,13 +15,14 @@ main()
 {
 	char word[]="printf";
 	const int n = length(word);
-	char guess[n]={};
+	char guess[n];
 	int tries=0;
 	
 	show_word(n, word);
 	
 	for (int i=0; i < MAX_TRIES; ++i) {
 		printf("What's your guess? (%d/%d)\n--> ", i+1, MAX_TRIES);
+		guess[0] = 0;  // clean guess
 		scanf("%s", guess);
 		show_guess(n, guess, word);
 	}
@@ -52,11 +53,12 @@ show_guess(int n, char *guess, char *word)
 	int i;
 
 	printf("%s", sub);
-	for (i=0; i < n || guess[i]; ++i) {
+	for (i=0; i < n && guess[i]; ++i) {
 		printf("%s%c", guess[i] == word[i] ?
 		                   green : contains(guess[i],word) ? yellow : normal,
 			guess[i]);
 	}
+	printf("%s", normal);
 	for (; i < n; ++i)
 		putchar(' ');
 	printf("%s", reset);
