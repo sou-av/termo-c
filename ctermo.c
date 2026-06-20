@@ -1,27 +1,36 @@
 #include <stdio.h>
-
+#include <stdlib.h>
+#include <locale.h>
+#include <time.h>
 
 #define MAX_TRIES 3
+#define FILENAME "words.txt"
 
 
 void show_word(int,char*);
 void show_guess(int,char*,char*);
+void random_pick(char *word, char *hint);
 int length(char*);
 int contains(char,char*);
 int is_equal(char*,char*);
+int count_lines(FILE*);
 
 
 int
 main()
 {
-	char word[]="printf";
-	const int n = length(word);
-	char guess[n];
-	int tries=0;
+	char word[BUFSIZ], guess[BUFSIZ], hint[BUFSIZ];
+	int n, i, tries=0;
+
+	srand(time(NULL));
+	setlocale(LC_ALL, "Portuguese");
 	
+	random_pick(word, hint);
+	n = length(word);
+
 	show_word(n, word);
 	
-	for (int i=0; i < MAX_TRIES; ++i) {
+	for (i=0; i < MAX_TRIES; ++i) {
 		printf("What's your guess? (%d/%d)\n--> ", i+1, MAX_TRIES);
 		guess[0] = 0;  // clean guess
 		scanf("%s", guess);
@@ -99,5 +108,39 @@ is_equal(char *a, char *b)
 	for (int i=0; a[i] && b[i]; ++i)
 		if (a[i] != b[i]) return 0;
 	return 1;
+}
+
+
+int
+count_lines(FILE *f)
+{
+	int lines=0;
+	char s[BUFSIZ];
+	while (fgets(s, BUFSIZ, f)) ++lines;
+	return lines;
+}
+
+void
+random_pick(char word[], char *hint)
+{
+	int i;
+	FILE *f = fopen(FILENAME, "r");
+	const int lines = count_lines(f),
+	          pick = rand() % lines;
+	
+	// sem usar seek
+	fclose(f);
+	f = fopen("words.txt", "r");
+	for (i=0; i < pick; ++i)
+		fgets(word, BUFSIZ, f);
+
+	fscanf(f, "%s", word);
+	
+	fgets(hint, BUFSIZ, f);
+	for (i=0; hint[i]; ++i)
+		if (hint[i] == '\n')
+			hint[i] = 0;
+
+	fclose(f);
 }
 
