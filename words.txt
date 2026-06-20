@@ -1,3 +1,7 @@
 srand Função para define seed de números aleatórios
 scanf Função para escanear valores e armazena-los na memória
 printf Função para exibir texto na tela de acordo com formatação
+puts Função para mostrar string na tela, sem formatação
+rand Função para sortear número aleatório
+int Tipo primitivo para números que não são quebrados
+float Tipo primitivo para números com casas depois da vírgula
