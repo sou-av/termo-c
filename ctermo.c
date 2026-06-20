@@ -8,6 +8,7 @@ void show_word(int,char*);
 void show_guess(int,char*,char*);
 int length(char*);
 int contains(char,char*);
+int is_equal(char*,char*);
 
 
 int
@@ -25,7 +26,14 @@ main()
 		guess[0] = 0;  // clean guess
 		scanf("%s", guess);
 		show_guess(n, guess, word);
+		if (is_equal(guess, word))
+			break;
 	}
+
+	if (is_equal(guess, word))
+		puts("\nCONGRATULATIONS! You WON!!");
+	else
+		puts("\nNot this time.. Looser");
 
 	return 0;
 }
@@ -82,5 +90,14 @@ contains(char c, char *word)
 	for (int i=0; word[i]; ++i)
 		if (word[i] == c) return 1;
 	return 0;
+}
+
+
+int
+is_equal(char *a, char *b)
+{
+	for (int i=0; a[i] && b[i]; ++i)
+		if (a[i] != b[i]) return 0;
+	return 1;
 }
 
