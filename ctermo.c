@@ -4,6 +4,7 @@
 void show_word(int,char*);
 void show_guess(int,char*,char*);
 int length(char*);
+int contains(char,char*);
 
 
 int
@@ -29,7 +30,6 @@ show_word(int n, char *word)
 {
 	const char sub[]="\033[4m", normal[]="\033[m";
 
-	printf("size %d\n", n);
 	printf("%s", sub);
 	for (int i=0; i < n; ++i) {
 		putchar(word[i] ? word[i] : ' ');
@@ -43,12 +43,12 @@ void
 show_guess(int n, char *guess, char *word)
 {
 	const char sub[]="\033[4m", normal[]="\033[40;39m", 
-	           green[]="\033[30;42m", yellow[]="\033[33m";
+	           green[]="\033[30;42m", yellow[]="\033[30;43m";
 
-	printf("size %d\n", n);
 	printf("%s", sub);
 	for (int i=0; i < n; ++i) {
-		printf("%s%c", guess[i] == word[i] ? green : normal,
+		printf("%s%c", guess[i] == word[i] ?
+		                   green : contains(guess[i],word) ? yellow : normal,
 			guess[i] ? guess[i] : ' ');
 	}
 	printf("%s", normal);
@@ -63,5 +63,14 @@ length(char *word)
 	for (i=0; word[i]; ++i)
 		;
 	return i;
+}
+
+
+int
+contains(char c, char *word)
+{
+	for (int i=0; word[i]; ++i)
+		if (word[i] == c) return 1;
+	return 0;
 }
 
