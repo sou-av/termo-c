@@ -5,3 +5,18 @@ puts Função para mostrar string na tela, sem formatação
 rand Função para sortear número aleatório
 int Tipo primitivo para números que não são quebrados
 float Tipo primitivo para números com casas depois da vírgula
+char Tipo para armazenar caracteres
+double Tipo numerico com maior precisao
+for Estrutura de repeticao com contador
+while Estrutura de repeticao enquanto uma condicao for verdadeira
+if Estrutura condicional
+else Executado quando a condicao do if e falsa
+switch Estrutura para multiplas escolhas
+break Interrompe um bloco de codigo
+continue Pula para a proxima repeticao
+return Retorna um valor de uma funcao
+void Indica ausencia de retorno
+main Funcao principal do programa
+const Define um valor constante
+fopen Abre um arquivo
+fclose Fecha um arquivo
