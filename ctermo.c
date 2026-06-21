@@ -14,6 +14,7 @@ int length(char*);
 int contains(char,char*);
 int is_equal(char*,char*);
 int count_lines(FILE*);
+char jogar_novamente;
 
 
 int
@@ -21,15 +22,25 @@ main()
 {
 	char word[BUFSIZ], guess[BUFSIZ], hint[BUFSIZ];
 	int n, i, tries=0;
+	
+	do {
 
 	srand(time(NULL));
 	setlocale(LC_ALL, "Portuguese");
 	
+	printf("=================================\n");
+    printf("      C++ Termo! \n");
+    printf("=================================\n");
+    printf("Acerte o termo de programação C!!\n");
+    printf("Você tem %d chances.\n", MAX_TRIES);
+    printf("Digite '?' se precisar de uma dica.\n");
+    printf("=================================\n\n");
 	random_pick(word, hint);
 	n = length(word);
+	printf("DICA: A palavra possui %d letras.\n\n", n);
 
 	for (i=0; i < MAX_TRIES; ++i) {
-		printf("What's your guess? (%d/%d)%s\n--> ", i+1, MAX_TRIES,
+		printf("Tentativa %d de %d%s\n--> ", i+1, MAX_TRIES,
 		                                    i+1 == MAX_TRIES-1 ? HELP : "");
 		
 		guess[0] = 0;  // clean guess
@@ -45,14 +56,27 @@ main()
 	}
 
 
-	if (is_equal(guess, word))
-		puts("\nCONGRATULATIONS! You WON!!");
-	else
-		puts("\nNot this time.. Looser");
+	if (is_equal(guess, word)) {
+    if (i == 0)
+        puts("\nINCRIVEL! Acertou de primeira!");
+    else if (i <= 2)
+        puts("\nMUITO BEM! Voce acertou rapidamente!");
+    else
+        puts("\nPARABENS! Voce venceu!");
+    }
+    else {
+    puts("\nFIM DE JOGO!");
+    puts("Nao foi dessa vez. Tente novamente!");
+    }
 	
 	printf("%s:%s\n", word, hint);
 
-	return 0;
+    printf("\nDeseja jogar novamente? (s/n): ");
+    scanf(" %c", &jogar_novamente);
+
+} while (jogar_novamente == 's' || jogar_novamente == 'S');
+
+return 0;
 }
 
 
@@ -151,4 +175,3 @@ random_pick(char word[], char *hint)
 
 	fclose(f);
 }
-
